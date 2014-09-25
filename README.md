@@ -1,1 +1,1 @@
-### Gulp Angular, Bootstrap-less generator
+### Gulp Angular, Bootstrap-less, Express generator

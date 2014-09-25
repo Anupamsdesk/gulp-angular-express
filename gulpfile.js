@@ -1,24 +1,19 @@
 'use strict';
 var gulp    = require('gulp'),
   less      = require('gulp-less'),
-  webserver = require('gulp-webserver'),
+  server   = require('gulp-express'),
   clean     = require('gulp-rimraf'),
   jshint    = require('gulp-jshint'),
   stylish   = require('jshint-stylish'),
-  config    = {
-    devServer : {
-      port              : 8000,
-      livereload        : true,
-      directoryListing  : false
-    }
-  },
-  staticDir = 'app',
-  mainLessFile = 'main.less';
+  mainLessFile = 'main.less',
+  serverConfig = {
+    file: 'app.js'
+  };
 
-gulp.task('webserver', function () {
-
-  gulp.src(staticDir)
-    .pipe(webserver(config.webserver));
+gulp.task('dev-server', function () {
+  server.run(serverConfig);
+  gulp.watch(["app/**/*.html", 'app/js/**/*.js'], server.notify);
+  gulp.watch(["app.js", 'server/**/*.js'], [server.run]);
 });
 
 gulp.task('lint', function () {
@@ -42,6 +37,7 @@ gulp.task('build-css', ['clean-css'], function () {
 gulp.task('watch-less', function () {
   return gulp.watch('app/css/*.less', ['build-css']);
 });
-gulp.task('serve', ['watch-less', 'watch-js', 'webserver'], function () {
+
+gulp.task('serve', ['watch-less', 'watch-js', 'dev-server'], function () {
   console.log('Dev Server started');
 });

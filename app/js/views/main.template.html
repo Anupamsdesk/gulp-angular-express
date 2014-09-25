@@ -1,3 +1,23 @@
 <div class="well">
   {{message}}
 </div>
+
+<div class="btn btn-info" ng-click='makeRequest()'>Request</div>
+<div class="btn btn-info" ng-click='clearRequest()'>Clear</div>
+<br/>
+<div class='text text-info text-lg'>Latest: 
+  <span class="text text-warning">{{model.latest}}</span>
+</div>
+
+  <center>
+  <progressbar  value="model.progress" 
+       max="100" animate='false'>
+    <div class="" style='width: 100%; text-align: center'> {{model.progress}} %</div>
+  </progressbar>
+</center>
+
+
+<div ng-repeat="x in model.results">
+  {{x.count}}  :  {{x.result}}
+</div>
+
